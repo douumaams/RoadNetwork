@@ -30,7 +30,11 @@ public class Box implements NetworkElement, Comparable<Box>
 
 	public boolean hasSensor()
 	{
+<<<<<<< HEAD
 		return (sensor != null);
+=======
+		return sensor == null;
+>>>>>>> bdd0215d0191c749bedec65795e2f1189d9fa161
 	}
 
 	public boolean hasVehicle()
@@ -43,13 +47,17 @@ public class Box implements NetworkElement, Comparable<Box>
 		if (!this.hasSensor())
 		{
 			this.sensor = s;
-			System.out.println("Un capteur vient d'être ajouté à la case " + this.id);
+			System.out.println("Un capteur vient d'ï¿½tre ajoutï¿½ ï¿½ la case " + this.id);
 			return true;
 		} else
 		{
+<<<<<<< HEAD
 			System.out.println(
 					"/!\\ Impossible d'ajouter un capteur à la case " + this.id + " car elle possède déjà un capteur");
 
+=======
+			System.out.println("Impossible d'ajouter un capteur ï¿½ la case " + this.id);
+>>>>>>> bdd0215d0191c749bedec65795e2f1189d9fa161
 			return false;
 		}
 	}
@@ -59,6 +67,7 @@ public class Box implements NetworkElement, Comparable<Box>
 		if (this.hasSensor())
 		{
 			this.sensor = null;
+<<<<<<< HEAD
 			System.out.println("Un capteur vient d'être supprimé de la case " + this.id);
 			return true;
 		} else
@@ -96,6 +105,13 @@ public class Box implements NetworkElement, Comparable<Box>
 		{
 			System.out.println("/!\\ Impossible de supprimer un véhicule à la case " + this.id
 					+ " car elle n'a pas de véhicule /!\\");
+=======
+			System.out.println("Un capteur vient d'ï¿½tre supprimï¿½ ï¿½ la case " + this.id);
+			return true;
+		} else
+		{
+			System.out.println("Impossible de supprimer un capteur ï¿½ la case " + this.id);
+>>>>>>> bdd0215d0191c749bedec65795e2f1189d9fa161
 			return false;
 		}
 	}
