@@ -1,6 +1,6 @@
 package semaphores;
 
-public class TrafficLight
+public abstract class TrafficLight extends Semaphore
 {
-
+	public abstract void changeColor();
 }

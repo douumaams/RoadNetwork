@@ -19,7 +19,7 @@ public class Box implements NetworkElement
 
 	public boolean hasSensor()
 	{
-		return (sensor == null) ? false : true;
+		return sensor == null;
 	}
 
 	public boolean hasVehicle()
@@ -32,11 +32,11 @@ public class Box implements NetworkElement
 		if (!this.hasSensor())
 		{
 			this.sensor = s;
-			System.out.println("Un capteur vient d'être ajouté à la case " + this.id);
+			System.out.println("Un capteur vient d'ï¿½tre ajoutï¿½ ï¿½ la case " + this.id);
 			return true;
 		} else
 		{
-			System.out.println("Impossible d'ajouter un capteur à la case " + this.id);
+			System.out.println("Impossible d'ajouter un capteur ï¿½ la case " + this.id);
 			return false;
 		}
 	}
@@ -46,11 +46,11 @@ public class Box implements NetworkElement
 		if (this.hasSensor())
 		{
 			this.sensor = null;
-			System.out.println("Un capteur vient d'être supprimé à la case " + this.id);
+			System.out.println("Un capteur vient d'ï¿½tre supprimï¿½ ï¿½ la case " + this.id);
 			return true;
 		} else
 		{
-			System.out.println("Impossible de supprimer un capteur à la case " + this.id);
+			System.out.println("Impossible de supprimer un capteur ï¿½ la case " + this.id);
 			return false;
 		}
 	}
