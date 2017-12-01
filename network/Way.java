@@ -1,6 +1,7 @@
 package network;
 
 import semaphores.Semaphore;
+import sensors.Sensor;
 
 public class Way implements NetworkElement
 {
@@ -9,7 +10,7 @@ public class Way implements NetworkElement
 	private Integer size;
 	private Direction dir;
 	private Box[] tabBox;
-	private Semaphore[] semaphore = new Semaphore[2]; // 0: UP 1: DOWN
+	private Semaphore semaphore;
 
 	private Way(Integer size, Direction dir)
 	{
@@ -25,54 +26,42 @@ public class Way implements NetworkElement
 		tab_way[0] = new Way(size, Direction.UP);
 		tab_way[1] = new Way(size, Direction.DOWN);
 
-		tab_way[0].tabBox = Box.newTabBox(size);
-		tab_way[1].tabBox = Box.newTabBox(size);
+		tab_way[0].tabBox = Box.makeTabBox(size);
+		tab_way[1].tabBox = Box.makeTabBox(size);
 
 		return tab_way;
 
 	}
 
-	public boolean hasSemaphore(Direction dir)
+	public boolean hasSemaphore()
 	{
-		if (dir == Direction.UP)
-		{
-			return (this.semaphore[0] == null) ? false : true;
-		} else
-		{
-			return (this.semaphore[1] == null) ? false : true;
-		}
 
+		return (this.semaphore == null);
 	}
 
-	public boolean addSemaphore(Semaphore s, Direction dir)
+	public boolean addSemaphore(Semaphore s)
 	{
-		if (dir == Direction.UP)
+		if (!hasSemaphore())
 		{
-			if (!hasSemaphore(dir))
-			{
-				this.semaphore[0] = s;
-				System.out.println("Un sémaphore a été ajouté sur la voie " + this.getId() + "dans le sens" + dir);
-				return true;
-			} else
-			{
-				System.out.println(
-						"Impossible d'ajouter un sémaphore sur la voie " + this.getId() + "dans le sens" + dir);
-				return false;
-			}
+			this.semaphore = s;
+			System.out.println("Un sémaphore a été ajouté sur la voie " + this.getId() + "dans le sens" + dir);
+			return true;
 		} else
 		{
-			if (!hasSemaphore(dir))
-			{
-				this.semaphore[1] = s;
-				System.out.println("Un sémaphore a été ajouté sur la voie " + this.getId() + "dans le sens" + dir);
-				return true;
-			} else
-			{
-				System.out.println(
-						"Impossible d'ajouter un sémaphore sur la voie " + this.getId() + "dans le sens" + dir);
-				return false;
-			}
+			System.out.println("/!\\ Impossible d'ajouter un sémaphore sur la voie " + this.getId() + "dans le sens"
+					+ dir + " car elle possède déjà un sémaphore /!\\");
+			return false;
 		}
+	}
+
+	public boolean addVehicle(Integer maxSpeed, Integer pos)
+	{
+		return this.tabBox[pos].addVehicle(maxSpeed);
+	}
+
+	public boolean addSensor(Sensor s, Integer pos)
+	{
+		return this.tabBox[pos].addSensor(s);
 	}
 
 	public static Integer getNumber()
@@ -122,7 +111,7 @@ public class Way implements NetworkElement
 	public static void main(String[] args)
 	{
 		Way way = new Way(10, Direction.UP);
-		way.tabBox = Box.newTabBox(10);
+		way.tabBox = Box.makeTabBox(10);
 		System.out.println(way.printState());
 	}
 }

@@ -1,5 +1,6 @@
 package vehicle;
 
+import network.Direction;
 import network.NetworkElement;
 
 public class Vehicle implements NetworkElement
@@ -8,22 +9,37 @@ public class Vehicle implements NetworkElement
 	private Integer id;
 	private Integer maxSpeed;
 	private Integer speed;
+
+	// emplacement de la voiture
+	private Integer segment;
+	private Direction dir;
 	private Integer position;
 
-	private Vehicle(Integer maxSpeed, Integer position)
+	private Vehicle(Integer maxSpeed)
 	{
 		this.id = number;
 		number++;
 		this.maxSpeed = maxSpeed;
 		this.speed = maxSpeed;
-		this.position = position;
 	}
 
-	public static Vehicle newVehicle(Integer maxSpeed, Integer position)
+	/*
+	 * private Vehicle(Integer maxSpeed, Integer numSeg, Direction dir, Integer pos)
+	 * { this.id = number; number++; this.maxSpeed = maxSpeed; this.speed =
+	 * maxSpeed; this.segment = segment; this.dir = dir; this.position = pos; }
+	 */
+
+	public static Vehicle makeVehicle(Integer maxSpeed)
 	{
-		Vehicle v = new Vehicle(maxSpeed, position);
+		Vehicle v = new Vehicle(maxSpeed);
 		return v;
 	}
+
+	/*
+	 * public static Vehicle newVehicle(Integer maxSpeed, Integer segment, Direction
+	 * dir, Integer pos) { Vehicle v = new Vehicle(maxSpeed, segment, dir, pos);
+	 * return v; }
+	 */
 
 	public void move()
 	{
@@ -33,7 +49,8 @@ public class Vehicle implements NetworkElement
 	@Override
 	public String toString()
 	{
-		return "Vehicle [id=" + id + ", maxSpeed=" + maxSpeed + ", speed=" + speed + ", position=" + position + "]";
+		return "Vehicle [id=" + id + ", maxSpeed=" + maxSpeed + ", speed=" + speed + ", segment=" + segment + ", dir="
+				+ dir + ", position=" + position + "]";
 	}
 
 	@Override
@@ -44,10 +61,10 @@ public class Vehicle implements NetworkElement
 
 	public static void main(String[] args)
 	{
-		Vehicle v1 = Vehicle.newVehicle(10, 1);
-		Vehicle v2 = Vehicle.newVehicle(10, 2);
-		Vehicle v3 = Vehicle.newVehicle(10, 3);
-		Vehicle v4 = Vehicle.newVehicle(10, 4);
+		Vehicle v1 = Vehicle.makeVehicle(10);
+		Vehicle v2 = Vehicle.makeVehicle(10);
+		Vehicle v3 = Vehicle.makeVehicle(10);
+		Vehicle v4 = Vehicle.makeVehicle(10);
 
 		System.out.println(v1.printState());
 		System.out.println(v2.printState());
