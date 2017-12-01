@@ -23,11 +23,11 @@ public class Way implements NetworkElement
 	public static Way[] newTabWay(Integer size)
 	{
 		Way[] tab_way = new Way[2];
-		tab_way[0] = new Way(size, Direction.UP);
-		tab_way[1] = new Way(size, Direction.DOWN);
+		tab_way[Direction.UP.ordinal()] = new Way(size, Direction.UP);
+		tab_way[Direction.DOWN.ordinal()] = new Way(size, Direction.DOWN);
 
-		tab_way[0].tabBox = Box.makeTabBox(size);
-		tab_way[1].tabBox = Box.makeTabBox(size);
+		tab_way[Direction.UP.ordinal()].tabBox = Box.makeTabBox(size);
+		tab_way[Direction.DOWN.ordinal()].tabBox = Box.makeTabBox(size);
 
 		return tab_way;
 

@@ -23,7 +23,7 @@ public class Segment implements NetworkElement
 	{
 		Segment s = new Segment(size);
 		s.tabWay = Way.newTabWay(size);
-		Arrays.sort(s.tabWay[1].getTabBox());
+		Arrays.sort(s.tabWay[Direction.DOWN.ordinal()].getTabBox());
 
 		return s;
 	}
