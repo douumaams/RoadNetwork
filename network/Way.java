@@ -2,116 +2,134 @@ package network;
 
 import semaphores.Semaphore;
 import sensors.Sensor;
+import vehicle.Vehicle;
 
 public class Way implements NetworkElement
 {
-	private static Integer number = 1;
-	private Integer id;
-	private Integer size;
-	private Direction dir;
-	private Box[] tabBox;
-	private Semaphore semaphore;
+    private static Integer number = 1;
+    private Integer id;
+    private Integer size;
+    private Direction dir;
+    private Box[] tabBox;
+    private Semaphore semaphore;
 
-	private Way(Integer size, Direction dir)
-	{
-		this.dir = dir;
-		this.size = size;
-		this.id = number;
-		number++;
-	}
+    private Way(Integer size, Direction dir)
+    {
+        this.dir = dir;
+        this.size = size;
+        this.id = number;
+        number++;
+    }
 
-	public static Way[] newTabWay(Integer size)
-	{
-		Way[] tab_way = new Way[2];
-		tab_way[Direction.UP.ordinal()] = new Way(size, Direction.UP);
-		tab_way[Direction.DOWN.ordinal()] = new Way(size, Direction.DOWN);
+    public static Way[] newTabWay(Integer size)
+    {
+        Way[] tab_way = new Way[2];
+        tab_way[Direction.LEFT.ordinal()] = new Way(size, Direction.LEFT);
+        tab_way[Direction.RIGHT.ordinal()] = new Way(size, Direction.RIGHT);
 
-		tab_way[Direction.UP.ordinal()].tabBox = Box.makeTabBox(size);
-		tab_way[Direction.DOWN.ordinal()].tabBox = Box.makeTabBox(size);
+        tab_way[Direction.LEFT.ordinal()].tabBox = Box.makeTabBox(size, Direction.LEFT);
+        tab_way[Direction.RIGHT.ordinal()].tabBox = Box.makeTabBox(size, Direction.RIGHT);
 
-		return tab_way;
+        return tab_way;
 
-	}
+    }
 
-	public boolean hasSemaphore()
-	{
+    public boolean hasSemaphore()
+    {
 
-		return (this.semaphore == null);
-	}
+        return (this.semaphore == null);
+    }
 
-	public boolean addSemaphore(Semaphore s)
-	{
-		if (!hasSemaphore())
-		{
-			this.semaphore = s;
-			System.out.println("Un sémaphore a été ajouté sur la voie " + this.getId() + "dans le sens" + dir);
-			return true;
-		} else
-		{
-			System.out.println("/!\\ Impossible d'ajouter un sémaphore sur la voie " + this.getId() + "dans le sens"
-					+ dir + " car elle possède déjà un sémaphore /!\\");
-			return false;
-		}
-	}
+    public boolean addSemaphore(Semaphore s)
+    {
+        if (!hasSemaphore())
+        {
+            this.semaphore = s;
+            System.out.println("Un sémaphore a été ajouté sur la voie " + this.getId() + "dans le sens" + dir);
+            return true;
+        }
+        else
+        {
+            System.out.println("/!\\ Impossible d'ajouter un sémaphore sur la voie " + this.getId() + "dans le sens"
+                    + dir + " car elle possède déjà un sémaphore /!\\");
+            return false;
+        }
+    }
 
-	public boolean addVehicle(Integer maxSpeed, Integer pos)
-	{
-		return this.tabBox[pos].addVehicle(maxSpeed);
-	}
+    public boolean addVehicle(Vehicle v, Integer pos)
+    {
+        return this.tabBox[pos].addVehicle(v);
+    }
 
-	public boolean addSensor(Sensor s, Integer pos)
-	{
-		return this.tabBox[pos].addSensor(s);
-	}
+    public Vehicle makeVehicle(Integer maxSpeed, Integer numSeg, Direction dir, Integer pos)
+    {
+        return this.tabBox[pos].makeVehicle(maxSpeed, numSeg, dir, pos, this);
+    }
 
-	public static Integer getNumber()
-	{
-		return number;
-	}
+    public boolean addSensor(Sensor s, Integer pos)
+    {
+        return this.tabBox[pos].addSensor(s);
+    }
 
-	public Integer getId()
-	{
-		return id;
-	}
+    public static Integer getNumber()
+    {
+        return number;
+    }
 
-	public Integer getSize()
-	{
-		return size;
-	}
+    public Integer getId()
+    {
+        return id;
+    }
 
-	public Direction getDir()
-	{
-		return dir;
-	}
+    public Integer getSize()
+    {
+        return size;
+    }
 
-	public Box[] getTabBox()
-	{
-		return tabBox;
-	}
+    public Direction getDir()
+    {
+        return dir;
+    }
 
-	@Override
-	public String toString()
-	{
-		String s = "Way " + dir + " [id=" + id + ", size=" + size + "]\n";
+    public Box[] getTabBox()
+    {
+        return tabBox;
+    }
 
-		for (Box b : this.getTabBox())
-		{
-			s += b.printState() + "\n";
-		}
+    @Override
+    public String toString()
+    {
+        String s = "Way " + dir + " [id=" + id + ", size=" + size + "]\n";
 
-		return s + "\n";
-	}
+        if (this.dir == Direction.LEFT)
+        {
+            for (Box b : this.getTabBox())
+            {
+                s += b.printState() + "\n";
+            }
+        }
+        if (this.dir == Direction.RIGHT)
+        {
+            Box[] b = this.getTabBox();
+            for (int i = this.size - 1; i >= 0; i--)
+            {
+                s += b[i].printState() + "\n";
+            }
+        }
 
-	@Override
-	public String printState()
-	{
-		return this.toString();
-	}
+        return s + "\n";
+    }
 
-	public static void main(String[] args)
-	{
-		Way way = new Way(10, Direction.UP);
-		way.tabBox = Box.makeTabBox(10);
-		System.out.println(way.printState());
-	}
+    @Override
+    public String printState()
+    {
+        return this.toString();
+    }
+
+    public static void main(String[] args)
+    {
+        Way way = new Way(10, Direction.LEFT);
+        way.tabBox = Box.makeTabBox(10, Direction.LEFT);
+        System.out.println(way.printState());
+    }
 }
