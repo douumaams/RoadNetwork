@@ -18,7 +18,6 @@ public class SpeedSensor extends Sensor
 			super.notifyObserver();
 			System.out.println("La voiture "+idVoiture +"roule a une vitesse de " + interest);
 		}
-		// traiter les exceptions
 		
 	}
 
