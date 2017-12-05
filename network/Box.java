@@ -1,15 +1,19 @@
 package network;
 
+import observer.Observer;
+import observer.Subject;
 import sensors.Sensor;
+import sensors.SensorException;
+import sensors.SpeedSensorException;
 import vehicle.Vehicle;
 
-public class Box implements NetworkElement, Comparable<Box>
+public class Box implements NetworkElement, Comparable<Box>, Subject
 {
 	private static Integer number = 1;
 	private Integer id;
 	private Integer pos;
 	private Vehicle vehicle;
-	private Sensor sensor;
+	private Observer sensor;
 
 	private Box()
 	{
@@ -48,7 +52,7 @@ public class Box implements NetworkElement, Comparable<Box>
 		} else
 		{
 			System.out.println(
-					"/!\\ Impossible d'ajouter un capteur à la case " + this.id + " car elle possède déjà un capteur");
+					"/!\\ Impossible d'ajouter un capteur ï¿½ la case " + this.id + " car elle possï¿½de dï¿½jï¿½ un capteur");
 
 			System.out.println("Impossible d'ajouter un capteur ï¿½ la case " + this.id);
 			return false;
@@ -60,12 +64,12 @@ public class Box implements NetworkElement, Comparable<Box>
 		if (this.hasSensor())
 		{
 			this.sensor = null;
-			System.out.println("Un capteur vient d'être supprimé de la case " + this.id);
+			System.out.println("Un capteur vient d'ï¿½tre supprimï¿½ de la case " + this.id);
 			return true;
 		} else
 		{
-			System.out.println("/!\\ Impossible de supprimer un capteur à la case " + this.id
-					+ "car elle ne possède pas de capteur /!\\");
+			System.out.println("/!\\ Impossible de supprimer un capteur ï¿½ la case " + this.id
+					+ "car elle ne possï¿½de pas de capteur /!\\");
 
 			return false;
 		}
@@ -76,12 +80,12 @@ public class Box implements NetworkElement, Comparable<Box>
 		if (!this.hasVehicle())
 		{
 			this.vehicle = Vehicle.makeVehicle(maxSpeed);
-			System.out.println("Un véhicule vient d'être ajouté à la case " + this.id);
+			System.out.println("Un vï¿½hicule vient d'ï¿½tre ajoutï¿½ ï¿½ la case " + this.id);
 			return true;
 		} else
 		{
-			System.out.println("/!\\ Impossible d'ajouter un véhicule de la case " + this.id
-					+ " car elle possède déjà un véhicule /!\\");
+			System.out.println("/!\\ Impossible d'ajouter un vï¿½hicule de la case " + this.id
+					+ " car elle possï¿½de dï¿½jï¿½ un vï¿½hicule /!\\");
 			return false;
 		}
 	}
@@ -91,7 +95,7 @@ public class Box implements NetworkElement, Comparable<Box>
 		if (this.hasVehicle())
 		{
 			this.vehicle = null;
-			System.out.println("Un vehicle vient d'être supprimé de la case " + this.id);
+			System.out.println("Un vehicle vient d'ï¿½tre supprimï¿½ de la case " + this.id);
 			return true;
 		} else
 		{
@@ -155,5 +159,33 @@ public class Box implements NetworkElement, Comparable<Box>
 		System.out.println(b3.printState());
 		System.out.println(b4.printState());
 		System.out.println(b5.printState());
+	}
+
+	@Override
+	public boolean register(Observer observer)
+	{
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean unregister(Observer observer)
+	{
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public void notifyObserver()
+	{
+		if(hasVehicle())
+			try
+			{
+				sensor.actualize(vehicle.getId(), vehicle.getSpeed());
+			} catch (SensorException e)
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 	}
 }
