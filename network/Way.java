@@ -6,6 +6,7 @@ import vehicle.Vehicle;
 
 public class Way implements NetworkElement
 {
+
     private static Integer number = 1;
     private Integer id;
     private Integer size;
@@ -45,13 +46,13 @@ public class Way implements NetworkElement
         if (!hasSemaphore())
         {
             this.semaphore = s;
-            System.out.println("Un sémaphore a été ajouté sur la voie " + this.getId() + "dans le sens" + dir);
+            System.out.println("Un sï¿½maphore a ï¿½tï¿½ ajoutï¿½ sur la voie " + this.getId() + "dans le sens" + dir);
             return true;
         }
         else
         {
-            System.out.println("/!\\ Impossible d'ajouter un sémaphore sur la voie " + this.getId() + "dans le sens"
-                    + dir + " car elle possède déjà un sémaphore /!\\");
+            System.out.println("/!\\ Impossible d'ajouter un sï¿½maphore sur la voie " + this.getId() + "dans le sens"
+                    + dir + " car elle possï¿½de dï¿½jï¿½ un sï¿½maphore /!\\");
             return false;
         }
     }
@@ -132,4 +133,5 @@ public class Way implements NetworkElement
         way.tabBox = Box.makeTabBox(10, Direction.LEFT);
         System.out.println(way.printState());
     }
+
 }

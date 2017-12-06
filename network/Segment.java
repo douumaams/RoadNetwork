@@ -6,6 +6,7 @@ import vehicle.Vehicle;
 
 public class Segment implements NetworkElement
 {
+
     private static Integer number = 1;
     private Integer id;
     private Integer size;
@@ -36,13 +37,13 @@ public class Segment implements NetworkElement
     {
         if (pos < 0)
         {
-            System.out.println("/!\\ Impossible d'ajouter un véhicule dans une position inférieure à 0 /!\\");
+            System.out.println("/!\\ Impossible d'ajouter un vï¿½hicule dans une position infï¿½rieure ï¿½ 0 /!\\");
             return false;
         }
 
         if (pos > this.size)
         {
-            System.out.println("/!\\ Impossible d'ajouter un véhicule dans le sens " + dir + " à la position " + pos
+            System.out.println("/!\\ Impossible d'ajouter un vï¿½hicule dans le sens " + dir + " ï¿½ la position " + pos
                     + " car la taille du segment vaut " + this.size + " /!\\");
             return false;
         }
@@ -54,12 +55,12 @@ public class Segment implements NetworkElement
     {
         if (pos < 0)
         {
-            System.out.println("/!\\ Impossible d'ajouter un véhicule dans une position inférieure à 0 /!\\");
+            System.out.println("/!\\ Impossible d'ajouter un vï¿½hicule dans une position infï¿½rieure ï¿½ 0 /!\\");
         }
 
         if (pos > this.size)
         {
-            System.out.println("/!\\ Impossible d'ajouter un véhicule dans le sens " + dir + " à la position " + pos
+            System.out.println("/!\\ Impossible d'ajouter un vï¿½hicule dans le sens " + dir + " ï¿½ la position " + pos
                     + " car la taille du segment vaut " + this.size + " /!\\");
         }
 
@@ -70,13 +71,13 @@ public class Segment implements NetworkElement
     {
         if (pos < 0)
         {
-            System.out.println("/!\\ Impossible d'ajouter un capteur dans une position inférieure à 0 /!\\");
+            System.out.println("/!\\ Impossible d'ajouter un capteur dans une position infï¿½rieure ï¿½ 0 /!\\");
             return false;
         }
 
         if (pos > this.size)
         {
-            System.out.println("/!\\ Impossible d'ajouter un capteur dans le sens " + dir + " à la position " + pos
+            System.out.println("/!\\ Impossible d'ajouter un capteur dans le sens " + dir + " ï¿½ la position " + pos
                     + " car la taille du segment vaut " + this.size + " /!\\");
             return false;
         }

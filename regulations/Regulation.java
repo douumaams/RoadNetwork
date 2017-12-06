@@ -1,6 +1,8 @@
 package regulations;
 
-public interface Regulation
+import observer.Observer;
+
+public interface Regulation extends Observer
 {
 
 }
